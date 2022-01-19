@@ -17,19 +17,26 @@ import AppIntroSlider from "react-native-app-intro-slider";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import Logo from "../../assets/financial-black.jpeg";
+import Logo from "../../assets/financial.png";
 import LogoCircle from "../../assets/financial-icon.png";
 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { useNavigation } from "@react-navigation/native";
-import { AntDesign, Entypo } from "@expo/vector-icons";
+import { AntDesign, Entypo, MaterialIcons } from "@expo/vector-icons";
 
 import { LoginModal } from "./loginModal";
 import AuthContext from "../../context/auth";
 
+import Image0 from "../../assets/image0.png";
+import Image1 from "../../assets/image1.png";
+import Image2 from "../../assets/image2.png";
+import Image3 from "../../assets/image3.png";
+
 const Auth = () => {
   const navigation = useNavigation();
+
+  const [light, setLight] = React.useState(true);
 
   const { user, setUser, signUp } = React.useContext(AuthContext);
 
@@ -99,7 +106,7 @@ const Auth = () => {
   const _renderNextButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <Text style={{ color: "#fff" }}>Próximo</Text>
+        <Text style={{ color: "#FFF" }}>Próximo</Text>
       </View>
     );
   };
@@ -113,7 +120,7 @@ const Auth = () => {
         }}
         style={styles.buttonCircleDone}
       >
-        <Text style={{ color: "#000" }}>Pronto!</Text>
+        <Text style={{ color: "#FFF", fontWeight: "bold" }}>Pronto</Text>
       </TouchableOpacity>
     );
   };
@@ -123,27 +130,46 @@ const Auth = () => {
     const windowHeight = Dimensions.get("window").height;
 
     return (
-      <View style={{ backgroundColor: "#000", flex: 1, paddingHorizontal: 20 }}>
-        <Text
+      <View style={{ backgroundColor: "#FFF", flex: 1, paddingHorizontal: 20 }}>
+        <View
           style={{
-            fontSize: 26,
-            color: "#fff",
-            marginTop: Dimensions.get("window").height / 1.75,
-            fontWeight: "bold",
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          {item.title}
-        </Text>
-        <Text
-          style={{
-            fontSize: 20,
-            color: "#aaa",
-            textAlign: "left",
-            marginBottom: "20%",
-          }}
-        >
-          {item.text}
-        </Text>
+          <Image
+            source={item.image}
+            style={{
+              height: 250,
+              width: "100%",
+              marginTop: Dimensions.get("window").height / 3,
+            }}
+          />
+          <Text
+            style={{
+              marginTop: 30,
+              fontSize: 22,
+              color: "#fff",
+              width: "100%",
+              textAlign: "center",
+              fontWeight: "bold",
+            }}
+          >
+            {item.title}
+          </Text>
+          <Text
+            style={{
+              fontSize: 20,
+              color: "#aaa",
+              width: "100%",
+              textAlign: "center",
+              marginBottom: "20%",
+            }}
+          >
+            {item.text}
+          </Text>
+        </View>
       </View>
     );
   };
@@ -157,7 +183,7 @@ const Auth = () => {
           width: "100%",
           marginTop: 350,
           justifyContent: "space-between",
-          marginLeft: 30,
+          marginLeft: 20,
           position: "absolute",
           zIndex: 3,
         }}
@@ -174,7 +200,7 @@ const Auth = () => {
               backgroundColor: "purple",
             }}
           ></TouchableOpacity>
-          <Text style={{ color: "#fff" }}>Show Intro</Text>
+          <Text style={{ color: light ? "#333" : "#fff" }}>Show Intro</Text>
         </View>
         <View>
           <TouchableOpacity
@@ -192,7 +218,7 @@ const Auth = () => {
               backgroundColor: "pink",
             }}
           ></TouchableOpacity>
-          <Text style={{ color: "#fff" }}>Set User</Text>
+          <Text style={{ color: light ? "#333" : "#fff" }}>Set User</Text>
         </View>
         <View>
           <TouchableOpacity
@@ -210,7 +236,7 @@ const Auth = () => {
               backgroundColor: "#c8a2c8",
             }}
           ></TouchableOpacity>
-          <Text style={{ color: "#fff" }}>Set Staff</Text>
+          <Text style={{ color: light ? "#333" : "#fff" }}>Set Staff</Text>
         </View>
         <View>
           <TouchableOpacity
@@ -225,7 +251,7 @@ const Auth = () => {
               backgroundColor: "#aaf2c8",
             }}
           ></TouchableOpacity>
-          <Text style={{ color: "#fff" }}>Light/Dark</Text>
+          <Text style={{ color: light ? "#333" : "#fff" }}>Light/Dark</Text>
         </View>
       </View>
     );
@@ -236,7 +262,7 @@ const Auth = () => {
       <View
         style={{
           flex: 1,
-          backgroundColor: "#000",
+          backgroundColor: light ? "#FFF" : "#000",
           paddingHorizontal: 20,
           paddingTop: Platform.OS === "ios" ? 40 : 20,
         }}
@@ -256,12 +282,16 @@ const Auth = () => {
               setLogin(false);
             }}
           >
-            <AntDesign name="arrowleft" size={24} color="#fff" />
+            <AntDesign
+              name="arrowleft"
+              size={24}
+              color={light ? "#333" : "#FFF"}
+            />
             <Text
               style={{
                 marginLeft: 10,
                 fontSize: 24,
-                color: "#FFF",
+                color: light ? "#333" : "#FFF",
               }}
             >
               Voltar
@@ -284,9 +314,11 @@ const Auth = () => {
               height: 50,
               display: "flex",
               flexDirection: "row",
-              paddingHorizontal: 20,
+              paddingHorizontal: light ? 0 : 20,
               width: "100%",
               borderRadius: 5,
+              borderBottomWidth: 1,
+              borderBottomColor: "#eee",
               justifyContent: "space-between",
               alignItems: "center",
               backgroundColor: "#FFF",
@@ -295,7 +327,7 @@ const Auth = () => {
             <Text style={{ fontSize: 18, color: "#000" }}>
               Login com o seu email
             </Text>
-            <AntDesign name="mail" size={20} color="#000" />
+            <MaterialIcons name="mail" size={20} color="#5c2dbf" />
           </TouchableOpacity>
           <TouchableOpacity
             style={{
@@ -303,18 +335,20 @@ const Auth = () => {
               height: 50,
               display: "flex",
               flexDirection: "row",
-              paddingHorizontal: 20,
+              paddingHorizontal: light ? 0 : 20,
               width: "100%",
               borderRadius: 5,
               justifyContent: "space-between",
               alignItems: "center",
               backgroundColor: "#FFF",
+              borderBottomWidth: 1,
+              borderBottomColor: "#eee",
             }}
           >
             <Text style={{ fontSize: 18, color: "#000" }}>
               Login com o seu telefone
             </Text>
-            <AntDesign name="phone" size={20} color="#000" />
+            <MaterialIcons name="phone" size={20} color="#5c2dbf" />
           </TouchableOpacity>
           <TouchableOpacity
             style={{
@@ -322,8 +356,10 @@ const Auth = () => {
               height: 50,
               display: "flex",
               flexDirection: "row",
-              paddingHorizontal: 20,
+              paddingHorizontal: light ? 0 : 20,
               width: "100%",
+              borderBottomWidth: 1,
+              borderBottomColor: "#eee",
               borderRadius: 5,
               justifyContent: "space-between",
               alignItems: "center",
@@ -333,7 +369,7 @@ const Auth = () => {
             <Text style={{ fontSize: 18, color: "#000" }}>
               Login com o Google
             </Text>
-            <AntDesign name="google" size={20} color="#000" />
+            <AntDesign name="google" size={20} color="#5c2dbf" />
           </TouchableOpacity>
         </View>
       </View>
@@ -347,12 +383,12 @@ const Auth = () => {
       <View
         style={{
           flex: 1,
-          backgroundColor: "#000",
+          backgroundColor: light ? "#FFF" : "#000",
           paddingTop: "56%",
-          paddingHorizontal: 30,
+          paddingHorizontal: 20,
         }}
       >
-        <Dev />
+        {/* <Dev /> */}
         {/* <TouchableOpacity
           onPress={() => setDev(!dev)}
           style={{
@@ -363,17 +399,6 @@ const Auth = () => {
             borderRadius: 5,
           }}
         /> */}
-        <Text
-          style={{
-            color: "#fff",
-            fontSize: 16,
-            marginTop: "120%",
-            width: "100%",
-            textAlign: "left",
-          }}
-        >
-          Selecione para continuar
-        </Text>
         <View
           style={{
             display: "flex",
@@ -386,13 +411,13 @@ const Auth = () => {
         >
           <TouchableOpacity
             onPress={() => {
-              setRegister(true);
+              navigation.navigate("SignUp");
             }}
             style={{
               height: 150,
               width: "49%",
               padding: 15,
-              backgroundColor: "#fff",
+              backgroundColor: light ? "#bf72b7" : "#fff",
               justifyContent: "flex-end",
               borderRadius: 5,
             }}
@@ -401,6 +426,7 @@ const Auth = () => {
               style={{
                 fontWeight: "bold",
                 fontSize: 16,
+                color: light ? "#fff" : "#333",
                 textAlign: "left",
               }}
             >
@@ -409,13 +435,13 @@ const Auth = () => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              setLogin(true);
+              navigation.navigate("SignIn");
             }}
             style={{
               height: 150,
               width: "49%",
               padding: 15,
-              backgroundColor: "#fff",
+              backgroundColor: light ? "#9f52df" : "#fff",
               justifyContent: "flex-end",
               borderRadius: 5,
             }}
@@ -424,6 +450,7 @@ const Auth = () => {
               style={{
                 fontWeight: "bold",
                 fontSize: 16,
+                color: light ? "#fff" : "#333",
                 textAlign: "left",
               }}
             >
@@ -653,39 +680,31 @@ const Auth = () => {
           width: "100%",
           position: "absolute",
           zIndex: 1,
-          marginTop: "20%",
         }}
       >
         {!register && !otp ? (
-          <Image source={Logo} style={{ height: 120, width: 120 }} />
-        ) : null}
-
-        {!showIntro && !register && !otp ? (
-          <>
+          <View style={{ marginTop: Platform.OS === "web" ? 0 : 50 }}>
             <Text
               style={{
-                color: "#FFF",
-                fontSize: 33,
-                marginLeft: 30,
+                marginLeft: 20,
+                color: "#5C2DBF",
+                fontSize: 50,
                 fontWeight: "bold",
-                width: "90%",
-                textAlign: "left",
               }}
             >
-              Da Universidade ao Mercado Financeiro
+              Jobs
             </Text>
             <Text
               style={{
-                color: "#777",
-                fontSize: 16,
-                marginLeft: 30,
-                width: "90%",
-                textAlign: "left",
+                marginLeft: 20,
+                color: "#5C2DBF",
+                fontSize: 18,
               }}
             >
-              A forma mais inteligente de ingressar no mercado financeiro
+              powered by{" "}
+              <Text style={{ fontWeight: "bold" }}>FinancialCo.</Text>
             </Text>
-          </>
+          </View>
         ) : null}
       </View>
       {/* <Text
@@ -714,7 +733,8 @@ const Auth = () => {
             showDoneButton={true}
             showSkipButton={false}
             showNextButton={true}
-            dotStyle={{ backgroundColor: "#333" }}
+            dotStyle={{ backgroundColor: "#AAA" }}
+            activeDotStyle={{ backgroundColor: "#000" }}
             onSkip={onSkip}
             bottomButton={true}
             renderNextButton={_renderNextButton}
@@ -727,9 +747,9 @@ const Auth = () => {
         <View
           style={{
             flex: 1,
-            backgroundColor: "#000",
+            backgroundColor: light ? "#FFF" : "#000",
             padding: 20,
-            paddingTop: Platform.OS === "ios" ? 40 : 20,
+            paddingTop: Platform.OS === "ios" ? 36 : 20,
           }}
         >
           <View
@@ -744,12 +764,16 @@ const Auth = () => {
               style={{ display: "flex", flexDirection: "row" }}
               onPress={() => setRegister(false)}
             >
-              <AntDesign name="arrowleft" size={24} color="#fff" />
+              <AntDesign
+                name="arrowleft"
+                size={24}
+                color={light ? "#333" : "#fff"}
+              />
               <Text
                 style={{
                   marginLeft: 10,
                   fontSize: 24,
-                  color: "#FFF",
+                  color: light ? "#333" : "#FFF",
                 }}
               >
                 Voltar
@@ -761,24 +785,33 @@ const Auth = () => {
           <KeyboardAwareScrollView style={{ flex: 1, width: "100%" }}>
             <Text
               style={{
-                fontSize: 30,
-                color: "#FFF",
-                textAlign: "left",
-                width: "100%",
+                color: "#5C2DBF",
+                fontSize: 50,
+                fontWeight: "bold",
               }}
             >
-              Ingresse agora!
+              Jobs
+            </Text>
+            <Text
+              style={{
+                color: "#5C2DBF",
+                fontSize: 18,
+              }}
+            >
+              powered by{" "}
+              <Text style={{ fontWeight: "bold" }}>FinancialCo.</Text>
             </Text>
             <Text
               style={{
                 fontSize: 16,
+                marginTop: 10,
                 color: "#aaa",
                 textAlign: "left",
                 width: "100%",
               }}
             >
-              Crie a sua conta para conhecer as melhores vagas do mercado
-              financeiro
+              Ingresse e conecte-se com os maiores players e profissionais do
+              mercado
             </Text>
             <View
               style={{
@@ -787,10 +820,12 @@ const Auth = () => {
                 height: 50,
                 backgroundColor: "#FFF",
                 borderRadius: 5,
-                paddingLeft: 10,
+                paddingLeft: light ? 0 : 5,
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
+                borderBottomWidth: 1,
+                borderBottomColor: "#eee",
                 justifyContent: "space-between",
               }}
             >
@@ -819,8 +854,10 @@ const Auth = () => {
                 height: 50,
                 backgroundColor: "#FFF",
                 borderRadius: 5,
-                paddingLeft: 10,
+                paddingLeft: light ? 0 : 5,
                 display: "flex",
+                borderBottomWidth: 1,
+                borderBottomColor: "#eee",
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -851,7 +888,9 @@ const Auth = () => {
                 height: 50,
                 backgroundColor: "#FFF",
                 borderRadius: 5,
-                paddingLeft: 10,
+                paddingLeft: light ? 0 : 5,
+                borderBottomWidth: 1,
+                borderBottomColor: "#eee",
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
@@ -883,9 +922,11 @@ const Auth = () => {
                 height: 50,
                 backgroundColor: "#FFF",
                 borderRadius: 5,
-                paddingLeft: 10,
+                paddingLeft: light ? 0 : 5,
                 display: "flex",
                 flexDirection: "row",
+                borderBottomWidth: 1,
+                borderBottomColor: "#eee",
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
@@ -915,8 +956,10 @@ const Auth = () => {
                 height: 50,
                 backgroundColor: "#FFF",
                 borderRadius: 5,
-                paddingLeft: 10,
+                paddingLeft: light ? 0 : 5,
                 display: "flex",
+                borderBottomWidth: 1,
+                borderBottomColor: "#eee",
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -945,7 +988,9 @@ const Auth = () => {
                 height: 50,
                 backgroundColor: "#FFF",
                 borderRadius: 5,
-                paddingLeft: 10,
+                paddingLeft: light ? 0 : 5,
+                borderBottomWidth: 1,
+                borderBottomColor: "#eee",
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
@@ -972,8 +1017,8 @@ const Auth = () => {
             </View>
             <Text
               style={{
-                marginTop: 5,
-                fontSize: 14,
+                marginTop: 25,
+                fontSize: 12,
                 color: "#777",
                 textAlign: "left",
                 width: "100%",
@@ -1006,7 +1051,7 @@ const Auth = () => {
                 }
               }}
               style={{
-                marginTop: error ? 10 : 30,
+                marginTop: error ? 10 : 20,
                 marginBottom: 30,
                 height: 50,
                 width: "100%",
@@ -1022,10 +1067,9 @@ const Auth = () => {
             </TouchableOpacity>
             <Text
               style={{
-                marginTop: 5,
                 marginBottom: 10,
                 fontSize: 14,
-                color: "#eee",
+                color: "#aaa",
                 textAlign: "center",
                 width: "100%",
               }}
@@ -1043,38 +1087,39 @@ const Auth = () => {
       ) : (
         <Authentication />
       )}
-      <LoginModal modal={modal} setModal={setModal} modalIndex={0} />
     </>
   );
 };
 
 const slides = [
   {
+    key: "s0",
+    title: "Seja muito bem-vindo(a)!",
+    text: "É com muita felicidade que anunciamos o lançamento da plataforma Jobs o primeiro portal de vagas do mercado financeiro",
+    image: Image0,
+    backgroundColor: "#febe29",
+  },
+  {
     key: "s1",
 
     title: "Para melhorar a sua vida",
-    text: "Somos a primeira plataforma especializada na conexão dos universitários com o mercado financeiro",
-    image: {
-      uri: "https://images.pexels.com/photos/4391479/pexels-photo-4391479.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    },
+    text: "O Jobs é a primeira e maior plataforma especializada na conexão dos universitários ao mercado financeiro no Brasil",
+    image: Image1,
     backgroundColor: "#febe29",
   },
   {
     key: "s2",
     title: "Tudo em um só lugar",
-    text: "Conecte-se com os melhores players do mercado financeiro e conte conosco para mudar o seu futuro profissional",
-    image: {
-      uri: "https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-    },
+    text: "Conecte-se com os melhores players do mercado financeiro, entre no Jobs agora e mude o seu futuro profissional de uma vez por todas",
+    image: Image2,
+
     backgroundColor: "#22bcb5",
   },
   {
     key: "s3",
     title: "Contamos com você",
-    text: "Encontre todas as vagas organizadas de forma setorial e não se preocupe mais em buscar vagas em diversas outras plataformas ao mesmo tempo",
-    image: {
-      uri: "https://images.pexels.com/photos/4350099/pexels-photo-4350099.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260",
-    },
+    text: "Encontre todas as vagas organizadas de forma setorial, e não se preocupe em buscar vagas em diversas outras plataformas ao mesmo tempo",
+    image: Image3,
     backgroundColor: "#20d2bb",
   },
 ];
@@ -1121,8 +1166,7 @@ const styles = StyleSheet.create({
   buttonCircle: {
     width: "100%",
     height: 50,
-    backgroundColor: "#333",
-    opacity: 0.6,
+    backgroundColor: "#B77BE8",
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
@@ -1130,7 +1174,7 @@ const styles = StyleSheet.create({
   buttonCircleDone: {
     width: "100%",
     height: 50,
-    backgroundColor: "#fff",
+    backgroundColor: "#9f52df",
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",

@@ -27,8 +27,8 @@ export function LoginModal(props) {
 
   const [opened, setOpened] = useState(false);
 
-  const [email, setEmail] = React.useState('');
-  const [senha, setSenha] = React.useState('');
+  const [email, setEmail] = React.useState("");
+  const [senha, setSenha] = React.useState("");
 
   const [keyboardAvoid, setKeyboardAvoid] = useState(false);
 
@@ -167,7 +167,13 @@ export function LoginModal(props) {
             {error ? <Text style={{ color: "red" }}>{error}</Text> : null}
           </View>
           <TouchableOpacity
-            onPress={handleSignIn}
+            onPress={() => {
+              setUser({
+                id: 0,
+                nome: "Ricardo Fonseca Sarti Domene",
+                tipo: "User",
+              });
+            }}
             style={{
               fontSize: 18,
               width: "90%",
@@ -209,7 +215,6 @@ export function LoginModal(props) {
               color: "#333",
             }}
           >
-            {error ? <Text style={{ color: "red" }}>{error}</Text> : null}
             <View
               style={{
                 backgroundColor: "#fff",
