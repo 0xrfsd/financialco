@@ -7,16 +7,14 @@ import { AuthProvider } from "./context/auth";
 import Routes from "./routes";
 
 const App = () => {
-  const [signed, setSigned] = React.useState(false);
-
   return (
     <>
       <StatusBar
-        barStyle={Platform.OS === "android" ? "light-content" : "light-content"}
+        barStyle={Platform.OS === "android" ? "dark-content" : "dark-content"}
       />
       <NavigationContainer>
         <AuthProvider>
-            <Routes />
+          <Routes />
         </AuthProvider>
       </NavigationContainer>
     </>
